@@ -18,9 +18,21 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         const targetElement = document.querySelector(targetId);
         if (targetElement) {
             locoScroll.scrollTo(targetElement);
+            // Close mobile menu if open
+            const links = document.querySelector('#links');
+            if (links) links.classList.remove('active');
         }
     });
 });
+
+// Mobile menu toggle
+const menuBtn = document.querySelector('#menu-btn');
+const linksContainer = document.querySelector('#links');
+if (menuBtn && linksContainer) {
+    menuBtn.addEventListener('click', () => {
+        linksContainer.classList.toggle('active');
+    });
+}
 
 // tell ScrollTrigger to use these proxy methods for the "#main" element since Locomotive Scroll is hijacking things
 ScrollTrigger.scrollerProxy("#main", {

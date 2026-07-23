@@ -476,6 +476,28 @@ body {
         display: none;
     }
 
+    #links.active {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        right: 20px;
+        background-color: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        gap: 20px;
+        border: 1px solid rgba(0,0,0,0.05);
+        align-items: flex-start;
+    }
+
+    #links.active a {
+        margin: 0;
+        font-size: 16px;
+    }
+
     #icons {
         padding: 7px;
         border-radius: 50px;
@@ -492,7 +514,7 @@ body {
         min-height: 70vh;
         width: 100%;
         padding: 0 3vw;
-        padding-top: 25vh;
+        padding-top: 85px;
     }
 
     #page1 h1 {
