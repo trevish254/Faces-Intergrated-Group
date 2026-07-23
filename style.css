@@ -8,6 +8,16 @@
     src: url(./HelveticaNowText-Regular.ttf);
 }
 
+@font-face {
+    font-family: "Helvetica Regular";
+    src: url("https://db.onlinewebfonts.com/t/a64ff11d2c24584c767f6257e880dc65.eot");
+    src: url("https://db.onlinewebfonts.com/t/a64ff11d2c24584c767f6257e880dc65.eot?#iefix")format("embedded-opentype"),
+    url("https://db.onlinewebfonts.com/t/a64ff11d2c24584c767f6257e880dc65.woff2")format("woff2"),
+    url("https://db.onlinewebfonts.com/t/a64ff11d2c24584c767f6257e880dc65.woff")format("woff"),
+    url("https://db.onlinewebfonts.com/t/a64ff11d2c24584c767f6257e880dc65.ttf")format("truetype"),
+    url("https://db.onlinewebfonts.com/t/a64ff11d2c24584c767f6257e880dc65.svg#Helvetica Regular")format("svg");
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -27,7 +37,7 @@ body {
 }
 
 body {
-    background-color: #F7F7F7;
+    background-color: #f0f0f0;
 }
 
 #nav {
@@ -97,43 +107,6 @@ body {
     min-height: 100vh;
     width: 100%;
     position: relative;
-    padding: 0 1vw;
-    padding-top: 28vh;
-}
-
-#page1 h1 {
-    font-size: 15.8vw;
-    font-family: futura;
-    text-transform: uppercase;
-    line-height: 14vw;
-    letter-spacing: -8px;
-}
-
-#video-container {
-    height: 100vh;
-    width: 100%;
-    /* background-color: gray; */
-    margin-top: 1vw;
-    position: relative;
-}
-
-#video-container video {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-}
-
-#video-container #play {
-    padding: 3vw 2.3vw;
-    background-color: black;
-    color: white;
-    font-size: 1.3vw;
-    text-transform: uppercase;
-    font-family: futura;
-    position: fixed;
-    border-radius: 50%;
-    opacity: 0;
-    scale: 0;
 }
 
 #page2 {
@@ -757,4 +730,208 @@ body {
         line-height: 25px;
     }
 
+}
+
+#slider-section {
+    min-height: 100vh;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    background-color: #f0f0f0;
+}
+
+#slider-section .sidebar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vh;
+    height: max-content;
+    display: flex;
+    align-items: flex-start;
+    transform: rotate(-90deg) translate(-100%, 0);
+    transform-origin: left top;
+    padding: 3rem 4rem;
+    z-index: 10;
+}
+
+#slider-section .sidebar > div:nth-child(1) {
+    flex: 2;
+}
+
+#slider-section .sidebar > div:nth-child(2) {
+    flex: 2;
+    display: flex;
+    gap: 6em;
+}
+
+#slider-section p#header {
+    text-transform: uppercase;
+    font-size: 7.5rem;
+    line-height: 85%;
+    margin-bottom: 4rem;
+    font-family: futura;
+    font-weight: 400;
+    color: #5E6470;
+}
+
+#slider-section .sidebar-item p:not(#header) {
+    color: rgba(30, 50, 90, 0.7);
+    font-family: 'Helvetica';
+}
+
+#slider-section .slider {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+#slider-section .slider-wrapper {
+    position: absolute;
+    top: 0;
+    width: max-content;
+    padding: 0 45vw;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 100px;
+}
+
+#slider-section .slide {
+    position: relative;
+    width: 380px;
+    height: 500px;
+    background: #e3e3e3;
+    flex-shrink: 0;
+    border-radius: 2rem;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+}
+
+#slider-section .slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#slider-section .slide:hover img {
+    transform: scale(1.08);
+}
+
+#slider-section .slide-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0.25) 50%, rgba(0, 0, 0, 0) 100%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+#slider-section .slide-content {
+    position: absolute;
+    bottom: 2rem;
+    left: 1.75rem;
+    right: 1.75rem;
+    color: #ffffff;
+    z-index: 2;
+    pointer-events: none;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+#slider-section .service-num {
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: rgba(255, 255, 255, 0.75);
+    display: block;
+    margin-bottom: 0.35rem;
+}
+
+#slider-section .service-title {
+    font-size: 1.35rem;
+    font-weight: 400;
+    line-height: 1.3;
+    color: #ffffff;
+    font-family: 'Helvetica', sans-serif;
+    margin: 0;
+}
+
+#slider-section .subservices-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(20, 20, 20, 0.4);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    color: #ffffff;
+    padding: 2rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 5;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+    pointer-events: none;
+    border-radius: 2rem;
+}
+
+#slider-section .slide:hover .subservices-overlay {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+#slider-section .subservices-overlay h4 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #ffffff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 0.5rem;
+    font-family: 'Helvetica', sans-serif;
+}
+
+#slider-section .subservices-overlay ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+}
+
+#slider-section .subservices-overlay li {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.88);
+    position: relative;
+    padding-left: 1.2rem;
+    font-family: 'Helvetica', sans-serif;
+    line-height: 1.35;
+}
+
+#slider-section .subservices-overlay li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #60a5fa;
+    font-size: 1.1rem;
+    line-height: 1;
+}
+
+/* Logo Cloud Animations */
+.logo-marquee {
+    animation: marquee-scroll 25s linear infinite;
+}
+
+@keyframes marquee-scroll {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-100%);
+    }
 }

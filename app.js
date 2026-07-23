@@ -10,6 +10,18 @@ const locoScroll = new LocomotiveScroll({
 // each time Locomotive Scroll updates, tell ScrollTrigger to update too (sync positioning)
 locoScroll.on("scroll", ScrollTrigger.update);
 
+// Enable smooth scrolling for nav links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+            locoScroll.scrollTo(targetElement);
+        }
+    });
+});
+
 // tell ScrollTrigger to use these proxy methods for the "#main" element since Locomotive Scroll is hijacking things
 ScrollTrigger.scrollerProxy("#main", {
   scrollTop(value) {
@@ -62,46 +74,41 @@ function navbarAnimation() {
 navbarAnimation();
 
 function videoconAnimation() {
-    let videocon = document.querySelector("#video-container");
-    let playbtn = document.querySelector("#play");
-
-    videocon.addEventListener("mouseenter", function () {
-        gsap.to(playbtn, {
-            scale: 1,
-            opacity: 1
-        })
-    })
-
-    videocon.addEventListener("mouseleave", function () {
-        gsap.to(playbtn, {
-            scale: 0,
-            opacity: 0
-        })
-    })
-    videocon.addEventListener("mousemove", function (dets) {
-        gsap.to(playbtn, {
-            left: dets.x-85,
-            top: dets.y-80,
-            
-        })
-    })
+    // Disabled as the video is now styled and controlled directly within the glassmorphism layout
 }
 videoconAnimation();
 
 function loadingAnimation() {
-    gsap.from("#page1 h1", {
-        y: 100,
-        opacity: 0,
-        delay:0.5,
-        duration: 0.9,
-        stagger: 0.3
-    })
-    gsap.from("#page1 #video-container", {
-        scale: 0.9,
-        opacity: 0,
-        delay:1.3,
-        duration: 0.5,
-    })
+    // Initialize Lucide icons
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
+
+    // HeroBadge
+    gsap.fromTo("#hero-badge", 
+        { opacity: 0, y: 20 }, 
+        { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }
+    );
+    // H1
+    gsap.fromTo("#hero-heading", 
+        { opacity: 0, scale: 0.98 }, 
+        { opacity: 1, scale: 1, duration: 0.8, delay: 0.2, ease: "power2.out" }
+    );
+    // P
+    gsap.fromTo("#hero-paragraph", 
+        { opacity: 0 }, 
+        { opacity: 1, duration: 0.8, delay: 0.4, ease: "power2.out" }
+    );
+    // BottomLeftCard
+    gsap.fromTo("#bottom-left-card", 
+        { x: -20, opacity: 0 }, 
+        { x: 0, opacity: 1, duration: 0.8, delay: 0.2, ease: "power2.out" }
+    );
+    // BottomRightCorner
+    gsap.fromTo("#bottom-right-corner", 
+        { y: 20, opacity: 0 }, 
+        { y: 0, opacity: 1, duration: 0.8, delay: 0.4, ease: "power2.out" }
+    );
 }
 loadingAnimation();
 
@@ -135,3 +142,77 @@ function cursorAnimation() {
     })
 }
 cursorAnimation();
+
+function horizontalSlider() {
+    const sliderWrapper = document.querySelector("#slider-section .slider-wrapper");
+    const slides = document.querySelectorAll("#slider-section .slide");
+    const sidebarSubtext = document.querySelector("#slider-section .sidebar-item p:not(#header)");
+    if (!sliderWrapper || slides.length === 0) return;
+
+    let maxScroll = sliderWrapper.scrollWidth - window.innerWidth;
+
+    gsap.to(sliderWrapper, {
+        x: -maxScroll,
+        ease: "none",
+        scrollTrigger: {
+            trigger: "#slider-section",
+            scroller: "#main",
+            pin: true,
+            scrub: 1,
+            start: "top top",
+            end: () => `+=${maxScroll}`,
+            invalidateOnRefresh: true,
+            onUpdate: () => {
+                let closestSlide = null;
+                let minDistance = Infinity;
+
+                slides.forEach(slide => {
+                    const rect = slide.getBoundingClientRect();
+                    const centerPosition = (rect.left + rect.right) / 2;
+                    const distanceFromCenter = centerPosition - window.innerWidth / 2;
+                    const absDist = Math.abs(distanceFromCenter);
+
+                    if (absDist < minDistance) {
+                        minDistance = absDist;
+                        closestSlide = slide;
+                    }
+
+                    // Scale effect as slide approaches center
+                    let scale;
+                    if (distanceFromCenter > 0) {
+                        scale = Math.min(1.3, 1 + (1 - absDist / window.innerWidth) * 0.3);
+                    } else {
+                        scale = Math.max(0.8, 1 - (absDist / window.innerWidth) * 0.3);
+                    }
+
+                    gsap.set(slide, { scale: Math.max(0.85, Math.min(1.25, 1.25 - (absDist / (window.innerWidth * 0.6)) * 0.4)) });
+
+                    // Center text appearance animation
+                    const slideContent = slide.querySelector('.slide-content');
+                    if (slideContent) {
+                        // Text fully appears when close to center (within 300px)
+                        const centerRatio = Math.max(0, 1 - absDist / (window.innerWidth * 0.25));
+                        gsap.set(slideContent, {
+                            opacity: centerRatio,
+                            y: (1 - centerRatio) * 20
+                        });
+                    }
+                });
+
+                // Dynamically update sidebar subtext to highlight active centered service
+                if (closestSlide && sidebarSubtext && minDistance < window.innerWidth * 0.3) {
+                    const serviceName = closestSlide.getAttribute('data-service');
+                    if (serviceName) {
+                        sidebarSubtext.innerHTML = `Active Service: <br /><strong>${serviceName}</strong>`;
+                    }
+                }
+            }
+        }
+    });
+
+    window.addEventListener('resize', () => {
+        maxScroll = sliderWrapper.scrollWidth - window.innerWidth;
+    });
+}
+horizontalSlider();
+
