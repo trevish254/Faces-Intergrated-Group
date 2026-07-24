@@ -40,12 +40,17 @@
       font-family: 'Inter', sans-serif;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      overflow-x: clip;
+      overflow-x: hidden;
       background: #f0f0f0;
     }
-    * { box-sizing: border-box; }
+    * { box-sizing: border-box; margin: 0; }
+    html, body { max-width: 100%; }
     @media (max-width: 768px) {
       .desktop-nav-links { display: none !important; }
+      .services-navbar { padding: 12px 16px !important; }
+      .services-logo img { height: 50px !important; }
+      .hero-cta-pill { flex-direction: column !important; align-items: stretch !important; text-align: center; padding: 12px 16px !important; }
+      .hero-cta-pill button { width: 100% !important; }
     }
   </style>
 </head>
@@ -98,19 +103,20 @@
       ];
 
       return (
-        <div style={{
+        <div className="services-navbar" style={{
           width:'100%', position:'fixed', zIndex:99,
           padding:'20px 25px', display:'flex',
-          alignItems:'flex-start', justifyContent:'space-between',
+          alignItems:'center', justifyContent:'space-between',
           top:0, left:0, pointerEvents:'none',
+          boxSizing:'border-box',
         }}>
           {/* Logo */}
-          <div style={{height:70, overflow:'hidden', pointerEvents:'auto'}}>
+          <div className="services-logo" style={{overflow:'hidden', pointerEvents:'auto', flexShrink:0}}>
             <a href="../index.html">
               <img
                 src="../img/Faces-Integrated-Group__1_-removebg-preview.webp"
                 alt="FIG Logo"
-                style={{height:70, display:'block'}}
+                style={{height:70, display:'block', width:'auto'}}
               />
             </a>
           </div>
@@ -174,23 +180,29 @@
     // ─────────────────────────────────────────────────────────────────────────
     const HeroSection = () => (
       <section style={{
-        position:'relative', height:'50vh', minHeight:320, overflow:'hidden',
+        position:'relative', minHeight:'60vh', overflow:'hidden',
         marginBottom:-25, display:'flex', flexDirection:'column',
         justifyContent:'flex-end', paddingBottom:36, paddingLeft:16, paddingRight:16,
-        alignItems:'center',
+        alignItems:'center', paddingTop:120,
+        width:'100%', boxSizing:'border-box',
       }}>
         <video autoPlay muted loop playsInline src="../videos/services-hero.mp4" style={{
           position:'absolute', inset:0, width:'100%', height:'100%',
           objectFit:'cover', zIndex:0
         }} />
-        <div style={{position:'absolute', inset:0, background:'rgba(0,0,0,0.2)', zIndex:1}} />
+        <div style={{position:'absolute', inset:0, background:'rgba(0,0,0,0.35)', zIndex:1}} />
 
-        <div style={{position:'relative', zIndex:2, display:'flex', flexDirection:'column', alignItems:'center', animation:'fadeInDown 0.4s ease-out forwards'}}>
+        <div style={{
+          position:'relative', zIndex:2, display:'flex', flexDirection:'column',
+          alignItems:'center', animation:'fadeInDown 0.4s ease-out forwards',
+          width:'100%', maxWidth:640, paddingLeft:8, paddingRight:8, boxSizing:'border-box',
+        }}>
           <h1 style={{
             textAlign:'center', color:'#fff', fontWeight:400,
-            lineHeight:1.1, letterSpacing:'-0.03em',
-            fontSize:'clamp(28px, 5vw, 56px)',
-            marginBottom:16, fontFamily:"'Inter', sans-serif"
+            lineHeight:1.15, letterSpacing:'-0.02em',
+            fontSize:'clamp(26px, 7vw, 56px)',
+            marginBottom:16, fontFamily:"'Inter', sans-serif",
+            width:'100%',
           }}>
             <span style={{display:'block'}}>We build brands</span>
             <span style={{display:'block'}}>
@@ -200,24 +212,27 @@
           </h1>
 
           <p style={{
-            color:'rgba(255,255,255,0.8)', fontSize:14, fontWeight:500,
-            maxWidth:420, textAlign:'center', marginBottom:20, lineHeight:1.6
+            color:'rgba(255,255,255,0.85)', fontSize:14, fontWeight:400,
+            width:'100%', maxWidth:380, textAlign:'center', marginBottom:24, lineHeight:1.65,
           }}>
             Everything we do is designed to connect businesses with consumers through innovative, results-driven marketing solutions.
           </p>
 
-          <div style={{
-            background:'rgba(0,0,0,0.25)', backdropFilter:'blur(12px)',
+          <div className="hero-cta-pill" style={{
+            background:'rgba(0,0,0,0.3)', backdropFilter:'blur(12px)',
             WebkitBackdropFilter:'blur(12px)',
             borderRadius:12, display:'flex', alignItems:'center',
-            paddingLeft:24, paddingRight:4, paddingTop:4, paddingBottom:4, gap:16
+            flexWrap:'wrap',
+            paddingLeft:20, paddingRight:8, paddingTop:8, paddingBottom:8, gap:12,
+            width:'100%', maxWidth:420, boxSizing:'border-box',
           }}>
-            <span style={{color:'#fff', fontSize:14, fontWeight:500}}>
+            <span style={{color:'#fff', fontSize:13, fontWeight:500, flex:1, minWidth:0}}>
               Creativity, strategic planning, and market intelligence.
             </span>
             <button style={{
-              background:'#fff', color:'#000', fontSize:14, fontWeight:500,
-              padding:'10px 20px', borderRadius:10, border:'none', cursor:'pointer'
+              background:'#fff', color:'#000', fontSize:13, fontWeight:500,
+              padding:'10px 18px', borderRadius:10, border:'none', cursor:'pointer',
+              whiteSpace:'nowrap', flexShrink:0,
             }}
             onMouseEnter={e => e.currentTarget.style.background='rgba(255,255,255,0.9)'}
             onMouseLeave={e => e.currentTarget.style.background='#fff'}
