@@ -36,21 +36,25 @@
     }
   </script>
   <style>
-    body {
+    html, body {
       font-family: 'Inter', sans-serif;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       overflow-x: hidden;
+      max-width: 100%;
       background: #f0f0f0;
+      margin: 0;
+      padding: 0;
     }
-    * { box-sizing: border-box; margin: 0; }
-    html, body { max-width: 100%; }
+    *, *::before, *::after { box-sizing: border-box; }
+    #root { overflow-x: hidden; width: 100%; }
     @media (max-width: 768px) {
       .desktop-nav-links { display: none !important; }
       .services-navbar { padding: 12px 16px !important; }
       .services-logo img { height: 50px !important; }
       .hero-cta-pill { flex-direction: column !important; align-items: stretch !important; text-align: center; padding: 12px 16px !important; }
       .hero-cta-pill button { width: 100% !important; }
+      .footer-blurb { width: 90% !important; }
     }
   </style>
 </head>
@@ -531,6 +535,7 @@
         return () => observer.disconnect();
       }, []);
 
+      const isMobile = window.innerWidth < 768;
       return (
         <div
           id={feature.id}
@@ -538,10 +543,11 @@
           style={{
             background:'#fff',
             boxShadow:'0 2px 24px rgba(0,0,0,0.07)',
-            borderRadius:24, padding:'40px',
+            borderRadius:24, padding: isMobile ? '24px 20px' : '40px',
             transition:'transform 700ms ease-out, opacity 700ms ease-out',
-            transform: revealed ? 'translateX(0)' : 'translateX(64px)',
+            transform: revealed ? 'translateY(0)' : 'translateY(32px)',
             opacity: revealed ? 1 : 0,
+            width: '100%', maxWidth: '100%', overflow: 'hidden',
           }}
         >
           <div style={{marginBottom:24}}>
@@ -731,7 +737,7 @@
           </div>
 
           {/* Footer blurb */}
-          <div style={{
+          <div className="footer-blurb" style={{
             width:'70%', margin:'0 auto', paddingTop:40, paddingBottom:40,
             textAlign:'center', borderTop:'1px solid rgba(0,0,0,0.08)',
           }}>
@@ -763,9 +769,9 @@
       const [isModalOpen, setIsModalOpen] = useState(false);
 
       return (
-        <div style={{minHeight:'100vh', background:'#f0f0f0'}}>
+        <div style={{minHeight:'100vh', background:'#f0f0f0', overflowX:'hidden', width:'100%', maxWidth:'100vw'}}>
           <Navbar />
-          <main>
+          <main style={{overflowX:'hidden', width:'100%'}}>
             <HeroSection />
             <AboutSection />
             <FeaturesSection openModal={() => setIsModalOpen(true)} />
