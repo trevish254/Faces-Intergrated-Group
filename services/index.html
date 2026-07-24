@@ -115,9 +115,8 @@
           {/* Right side */}
           <div style={{display:'flex', alignItems:'center', gap:24, pointerEvents:'auto'}}>
 
-            {/* Desktop links — always visible */}
+            {/* Desktop links — hidden on mobile via Tailwind 'hidden md:flex' */}
             <div style={{
-              display:'flex',
               flexDirection:'row',
               alignItems:'center',
               gap:24,
@@ -127,7 +126,7 @@
               padding:'12px 20px', borderRadius:50,
               boxShadow:'0 4px 16px rgba(0,0,0,0.06)',
               border:'1px solid rgba(0,0,0,0.06)',
-            }}>
+            }} className="hidden md:flex">
               {navLinks.map(link => (
                 <a key={link.label} href={link.href} style={{
                   textTransform:'uppercase', textDecoration:'none',
