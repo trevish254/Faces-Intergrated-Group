@@ -68,25 +68,6 @@ body {
     gap: 40px;
 }
 
-#links {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 12px 20px;
-    background-color: rgba(255, 255, 255, 0.88);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-radius: 50px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
-    border: 1px solid rgba(0, 0, 0, 0.06);
-    gap: 0;
-}
-
-#links.active {
-    display: flex;
-    flex-direction: row;
-}
-
 
 #icons {
     padding: 10px;
@@ -98,23 +79,6 @@ body {
     font-size: 18px;
     margin: 0px 20px;
     font-weight: 100;
-}
-
-/* Desktop nav pill link styles */
-#nav-part2 #links a {
-    text-transform: uppercase;
-    text-decoration: none;
-    color: #333;
-    font-weight: 500;
-    font-size: 13px;
-    margin: 0 16px;
-    font-family: 'Helvetica', sans-serif;
-    transition: color 0.2s;
-    white-space: nowrap;
-}
-
-#nav-part2 #links a:hover {
-    color: #000;
 }
 
 /* Mobile hamburger dropdown */
@@ -526,12 +490,7 @@ body {
         justify-content: center;
         gap: 40px;
     }
-
-    /* Hide desktop pill nav on mobile */
-    #links {
-        display: none !important;
-    }
-
+    
     #icons {
         padding: 7px;
         border-radius: 50px;
