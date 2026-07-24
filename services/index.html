@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Faces Integrated Group — Our Services</title>
+  <meta name="description" content="FIG provides end-to-end brand experience solutions including experiential marketing, retail merchandising, event management, and creative production." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ["'Inter'", 'sans-serif'],
+          },
+          keyframes: {
+            'fade-in-down': {
+              '0%': { opacity: '0', transform: 'translateY(-8px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            }
+          },
+          animation: {
+            'fade-in-down': 'fade-in-down 0.2s ease-out forwards',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: clip;
+      background: #f0f0f0;
+    }
+    * { box-sizing: border-box; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect, useRef } = React;
+
+    // ── SVG Logo ──────────────────────────────────────────────────────────────
+    const LogoSVG = ({ fill = "#321C04", size = 40 }) => (
+      <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 256 256" fill="none">
+        <path d="M 256 256 L 178 256 C 150.386 256 128 233.614 128 206 L 128 256 L 0 256 L 0 192 C 0 156.654 28.654 128 64 128 C 99.346 128 128 156.654 128 192 L 128 128 L 256 128 Z M 78 0 C 105.614 0 128 22.386 128 50 L 128 0 L 256 0 L 256 64 C 256 99.346 227.346 128 192 128 C 156.654 128 128 99.346 128 64 L 128 128 L 0 128 L 0 0 Z" fill={fill} />
+      </svg>
+    );
+
+    // ── Mail Icon ─────────────────────────────────────────────────────────────
+    const MailIcon = () => (
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+      </svg>
+    );
+
+    // ── Plus Icon ─────────────────────────────────────────────────────────────
+    const PlusIcon = () => (
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M5 12h14"/><path d="M12 5v14"/>
+      </svg>
+    );
+
+    // ── Arrow Left Icon ───────────────────────────────────────────────────────
+    const ArrowLeftIcon = () => (
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="m12 19-7-7 7-7"/><path d="M19 12H5"/>
+      </svg>
+    );
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // NAVBAR  (matches homepage FIG navbar)
+    // ─────────────────────────────────────────────────────────────────────────
+    const Navbar = () => {
+      const [isOpen, setIsOpen] = useState(false);
+
+      const navLinks = [
+        { label: 'Services',    href: '#features' },
+        { label: 'Blog',        href: '../blog/index.html' },
+        { label: 'About Us',    href: '../about-us/index.html' },
+        { label: 'Contact Us',  href: '../contact-us/index.html' },
+        { label: '← Home',     href: '../index.html' },
+      ];
+
+      return (
+        <div style={{
+          width:'100%', position:'fixed', zIndex:99,
+          padding:'20px 25px', display:'flex',
+          alignItems:'flex-start', justifyContent:'space-between',
+          top:0, left:0, pointerEvents:'none',
+        }}>
+          {/* Logo */}
+          <div style={{height:70, overflow:'hidden', pointerEvents:'auto'}}>
+            <a href="../index.html">
+              <img
+                src="../img/Faces-Integrated-Group__1_-removebg-preview.webp"
+                alt="FIG Logo"
+                style={{height:70, display:'block'}}
+              />
+            </a>
+          </div>
+
+          {/* Right side */}
+          <div style={{display:'flex', alignItems:'center', gap:24, pointerEvents:'auto'}}>
+
+            {/* Desktop links — always visible */}
+            <div style={{
+              display:'flex',
+              flexDirection:'row',
+              alignItems:'center',
+              gap:24,
+              background:'rgba(255,255,255,0.88)',
+              backdropFilter:'blur(10px)',
+              WebkitBackdropFilter:'blur(10px)',
+              padding:'12px 20px', borderRadius:50,
+              boxShadow:'0 4px 16px rgba(0,0,0,0.06)',
+              border:'1px solid rgba(0,0,0,0.06)',
+            }}>
+              {navLinks.map(link => (
+                <a key={link.label} href={link.href} style={{
+                  textTransform:'uppercase', textDecoration:'none',
+                  color:'#333', fontWeight:500, fontSize:13,
+                  fontFamily:'Helvetica, sans-serif',
+                  transition:'color 200ms',
+                  whiteSpace:'nowrap',
+                }}
+                onMouseEnter={e => e.currentTarget.style.color='#000'}
+                onMouseLeave={e => e.currentTarget.style.color='#333'}
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
+
+            {/* Icons pill (mobile menu) */}
+            <div style={{
+              padding:'10px', borderRadius:50,
+              background:'rgba(247,247,247,0.85)',
+              backdropFilter:'blur(8px)',
+              display:'flex', alignItems:'center',
+            }}>
+              <i
+                className="ri-menu-fill"
+                style={{
+                  fontSize:18, margin:'0 16px', fontWeight:100,
+                  cursor:'pointer',
+                }}
+                onClick={() => setIsOpen(!isOpen)}
+              />
+              <i className="ri-shopping-cart-2-line" style={{fontSize:18, margin:'0 16px', fontWeight:100}} />
+            </div>
+
+            {/* Mobile dropdown */}
+            {isOpen && (
+              <div style={{
+                display:'flex',
+                flexDirection:'column',
+                position:'absolute',
+                top:80, right:40,
+                background:'rgba(255,255,255,0.97)',
+                backdropFilter:'blur(10px)',
+                WebkitBackdropFilter:'blur(10px)',
+                padding:'20px', borderRadius:12,
+                boxShadow:'0 10px 30px rgba(0,0,0,0.1)',
+                gap:20, border:'1px solid rgba(0,0,0,0.05)',
+                alignItems:'flex-start', zIndex:999,
+              }}>
+                {navLinks.map(link => (
+                  <a key={link.label} href={link.href} style={{
+                    textTransform:'uppercase', textDecoration:'none',
+                    color:'#333', fontWeight:500, fontSize:14,
+                    fontFamily:'Helvetica, sans-serif',
+                  }}
+                  onClick={() => setIsOpen(false)}
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      );
+    };
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // HERO SECTION
+    // ─────────────────────────────────────────────────────────────────────────
+    const HeroSection = () => (
+      <section style={{
+        position:'relative', height:'50vh', minHeight:320, overflow:'hidden',
+        marginBottom:-25, display:'flex', flexDirection:'column',
+        justifyContent:'flex-end', paddingBottom:36, paddingLeft:16, paddingRight:16,
+        alignItems:'center',
+      }}>
+        <video autoPlay muted loop playsInline src="../public/services-hero.mp4" style={{
+          position:'absolute', inset:0, width:'100%', height:'100%',
+          objectFit:'cover', zIndex:0
+        }} />
+        <div style={{position:'absolute', inset:0, background:'rgba(0,0,0,0.2)', zIndex:1}} />
+
+        <div style={{position:'relative', zIndex:2, display:'flex', flexDirection:'column', alignItems:'center', animation:'fadeInDown 0.4s ease-out forwards'}}>
+          <h1 style={{
+            textAlign:'center', color:'#fff', fontWeight:400,
+            lineHeight:1.1, letterSpacing:'-0.03em',
+            fontSize:'clamp(28px, 5vw, 56px)',
+            marginBottom:16, fontFamily:"'Inter', sans-serif"
+          }}>
+            <span style={{display:'block'}}>We build brands</span>
+            <span style={{display:'block'}}>
+              without{' '}
+              <em style={{fontFamily:"'Instrument Serif', serif", fontStyle:'italic'}}>limits</em>
+            </span>
+          </h1>
+
+          <p style={{
+            color:'rgba(255,255,255,0.8)', fontSize:14, fontWeight:500,
+            maxWidth:420, textAlign:'center', marginBottom:20, lineHeight:1.6
+          }}>
+            Everything we do is designed to connect businesses with consumers through innovative, results-driven marketing solutions.
+          </p>
+
+          <div style={{
+            background:'rgba(0,0,0,0.25)', backdropFilter:'blur(12px)',
+            WebkitBackdropFilter:'blur(12px)',
+            borderRadius:12, display:'flex', alignItems:'center',
+            paddingLeft:24, paddingRight:4, paddingTop:4, paddingBottom:4, gap:16
+          }}>
+            <span style={{color:'#fff', fontSize:14, fontWeight:500}}>
+              Creativity, strategic planning, and market intelligence.
+            </span>
+            <button style={{
+              background:'#fff', color:'#000', fontSize:14, fontWeight:500,
+              padding:'10px 20px', borderRadius:10, border:'none', cursor:'pointer'
+            }}
+            onMouseEnter={e => e.currentTarget.style.background='rgba(255,255,255,0.9)'}
+            onMouseLeave={e => e.currentTarget.style.background='#fff'}
+            >
+              Explore Capabilities
+            </button>
+          </div>
+        </div>
+      </section>
+    );
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // ABOUT SECTION
+    // ─────────────────────────────────────────────────────────────────────────
+    const AboutSection = () => (
+      <section id="about" style={{
+        background:'#FFEA75', position:'relative', zIndex:10,
+        borderTopLeftRadius:25, borderTopRightRadius:25,
+        padding:'80px 24px',
+      }}>
+        {/* Top Area */}
+        <div style={{maxWidth:768, margin:'0 auto', display:'flex', flexDirection:'column', alignItems:'center', marginBottom:96}}>
+          <p style={{
+            color:'#321C04', fontSize:18, textAlign:'center',
+            lineHeight:1.7, maxWidth:580, marginBottom:32, fontWeight:500
+          }}>
+            By combining creativity, strategic planning, and market intelligence, we deliver impactful campaigns that increase brand visibility and drive sales performance.
+          </p>
+          <div style={{display:'flex', flexWrap:'wrap', justifyContent:'center', gap:16}}>
+            <a href="../contact-us/index.html" style={{
+              background:'#321C04', color:'#FFF9F2', borderRadius:9999,
+              display:'flex', alignItems:'center', paddingRight:24, paddingLeft:8,
+              paddingTop:8, paddingBottom:8, gap:12, border:'none', cursor:'pointer',
+              textTransform:'uppercase', letterSpacing:'0.08em', fontWeight:500, fontSize:13,
+              textDecoration:'none'
+            }}>
+              <span style={{background:'#fff', borderRadius:'50%', width:32, height:32, display:'flex', alignItems:'center', justifyContent:'center', color:'#321C04'}}>
+                <MailIcon />
+              </span>
+              Say hello
+            </a>
+            <a href="../contact-us/index.html" style={{
+              background:'#D9C4AA', color:'#321C04', borderRadius:9999,
+              display:'flex', alignItems:'center', paddingRight:24, paddingLeft:8,
+              paddingTop:8, paddingBottom:8, gap:12, border:'none', cursor:'pointer',
+              textTransform:'uppercase', letterSpacing:'0.08em', fontWeight:500, fontSize:13,
+              textDecoration:'none'
+            }}>
+              <span style={{background:'#fff', borderRadius:'50%', width:32, height:32, display:'flex', alignItems:'center', justifyContent:'center', color:'#321C04'}}>
+                <PlusIcon />
+              </span>
+              Stay informed
+            </a>
+          </div>
+        </div>
+
+        {/* Divider */}
+        <div style={{display:'flex', alignItems:'center', marginBottom:96, maxWidth:1152, margin:'0 auto 96px'}}>
+          <div style={{width:8, height:8, borderRadius:'50%', background:'#D9C4AA', flexShrink:0}} />
+          <div style={{flex:1, height:2, background:'#D9C4AA', margin:'0 8px'}} />
+          <div style={{width:8, height:8, borderRadius:'50%', background:'#D9C4AA', flexShrink:0}} />
+        </div>
+
+        {/* Bottom */}
+        <div style={{maxWidth:1152, margin:'0 auto', display:'flex', flexWrap:'wrap', gap:48}}>
+          <div style={{display:'flex', flexDirection:'column', gap:16, flexShrink:0}}>
+            <img src="../img/Faces-Integrated-Group__1_-removebg-preview.webp" alt="FIG Logo" style={{height:40, display:'block', objectFit:'contain'}} />
+            <span style={{
+              fontSize:11, textTransform:'uppercase', letterSpacing:'0.15em',
+              fontWeight:600, color:'#321C04', lineHeight:1.8
+            }}>
+              Brands<br/>Amplified
+            </span>
+          </div>
+          <div style={{flex:1, minWidth:280}}>
+            <p style={{
+              color:'#321C04', lineHeight:1.3, fontWeight:400,
+              fontSize:'clamp(24px, 3.5vw, 42px)'
+            }}>
+              Faces Integrated Group (FIG) is a leading experiential marketing and brand activation agency dedicated to helping businesses build stronger connections with their customers through innovative, results-driven marketing solutions.
+            </p>
+          </div>
+        </div>
+      </section>
+    );
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // ANIMATED MODAL COMPONENTS
+    // ─────────────────────────────────────────────────────────────────────────
+    const { motion, AnimatePresence } = window.Motion || { motion: { div: 'div' }, AnimatePresence: ({children}) => children };
+    
+    const projects = [
+      { color: "#000000", src: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=600", title: "Retail Merchandising" },
+      { color: "#8C8C8C", src: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?q=80&w=600", title: "Brand Activations" },
+      { color: "#EFE8D3", src: "https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=600", title: "Event Management" },
+      { color: "#706D63", src: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=600", title: "Market Auditing" },
+    ];
+
+    const scaleAnimation = {
+      closed: { scale: 0, transition: { duration: 0.4, ease: [0.32, 0, 0.67, 0] }, x: "-50%", y: "-50%" },
+      enter: { scale: 1, transition: { duration: 0.4, ease: [0.76, 0, 0.24, 1] }, x: "-50%", y: "-50%" },
+      initial: { scale: 0, x: "-50%", y: "-50%" },
+    };
+
+    function Project({ index, title, setModal }) {
+      return (
+        <div
+          className="group flex w-full cursor-pointer items-center justify-between border-t border-[rgba(0,0,0,0.1)] px-5 md:px-20 py-10 transition-all duration-200 last:border-b hover:opacity-50"
+          onMouseEnter={() => setModal({ active: true, index })}
+          onMouseLeave={() => setModal({ active: false, index })}
+        >
+          <h2 className="m-0 font-normal text-3xl md:text-5xl lg:text-6xl text-[#1a1a1a] transition-transform duration-300 group-hover:translate-x-2"
+              style={{fontFamily: "'Inter', sans-serif", letterSpacing: '-0.02em'}}
+          >
+            {title}
+          </h2>
+          <p className="font-light text-[#1a1a1a] opacity-50 transition-transform duration-300 group-hover:-translate-x-2 hidden md:block"
+             style={{fontFamily: "'Inter', sans-serif"}}
+          >
+            Design & Strategy
+          </p>
+        </div>
+      );
+    }
+
+    function CursorModal({ modal, projects }) {
+      const { active, index } = modal;
+      const modalContainer = useRef(null);
+      const cursor = useRef(null);
+      const cursorLabel = useRef(null);
+
+      useEffect(() => {
+        if (!window.gsap) return;
+        const xMoveContainer = window.gsap.quickTo(modalContainer.current, "left", { duration: 0.8, ease: "power3" });
+        const yMoveContainer = window.gsap.quickTo(modalContainer.current, "top", { duration: 0.8, ease: "power3" });
+        const xMoveCursor = window.gsap.quickTo(cursor.current, "left", { duration: 0.5, ease: "power3" });
+        const yMoveCursor = window.gsap.quickTo(cursor.current, "top", { duration: 0.5, ease: "power3" });
+        const xMoveCursorLabel = window.gsap.quickTo(cursorLabel.current, "left", { duration: 0.45, ease: "power3" });
+        const yMoveCursorLabel = window.gsap.quickTo(cursorLabel.current, "top", { duration: 0.45, ease: "power3" });
+
+        const handleMouseMove = (e) => {
+          const { clientX, clientY } = e;
+          xMoveContainer(clientX);
+          yMoveContainer(clientY);
+          xMoveCursor(clientX);
+          yMoveCursor(clientY);
+          xMoveCursorLabel(clientX);
+          yMoveCursorLabel(clientY);
+        };
+        window.addEventListener("mousemove", handleMouseMove);
+        return () => window.removeEventListener("mousemove", handleMouseMove);
+      }, []);
+
+      if (!window.Motion) return null;
+
+      return (
+        <>
+          <motion.div
+            animate={active ? "enter" : "closed"}
+            initial="initial"
+            variants={scaleAnimation}
+            ref={modalContainer}
+            className="pointer-events-none fixed z-[9999] flex h-[350px] w-[400px] items-center justify-center overflow-hidden bg-white shadow-2xl"
+          >
+            <div className="absolute h-full w-full transition-[top] duration-500 ease-[cubic-bezier(0.76,0,0.24,1)]" style={{ top: `${index * -100}%` }}>
+              {projects.map((project) => (
+                <div key={project.title} className="flex h-full w-full items-center justify-center" style={{ backgroundColor: project.color }}>
+                  <img src={project.src} alt={project.title} className="w-full h-full object-cover" />
+                </div>
+              ))}
+            </div>
+          </motion.div>
+          <motion.div
+            animate={active ? "enter" : "closed"}
+            initial="initial"
+            variants={scaleAnimation}
+            ref={cursor}
+            className="pointer-events-none fixed z-[10000] flex h-20 w-20 items-center justify-center rounded-full bg-[#321C04] font-light text-sm text-white"
+          />
+          <motion.div
+            animate={active ? "enter" : "closed"}
+            initial="initial"
+            variants={scaleAnimation}
+            ref={cursorLabel}
+            className="pointer-events-none fixed z-[10000] flex h-20 w-20 items-center justify-center rounded-full bg-transparent font-light text-sm text-white"
+          >
+            View
+          </motion.div>
+        </>
+      );
+    }
+
+    function AnimatedModal({ isOpen, onClose }) {
+      const [modal, setModal] = useState({ active: false, index: 0 });
+
+      if (!window.Motion) return null;
+
+      return (
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              className="fixed inset-0 z-[9000] bg-[#f9f9f9] overflow-y-auto"
+            >
+              <div className="min-h-screen py-16 px-5 md:px-10">
+                <div className="mx-auto max-w-7xl flex flex-col h-full relative z-[9001]">
+                  {/* Header */}
+                  <div className="flex justify-between items-start mb-16">
+                    <div>
+                      <h2 className="text-6xl md:text-7xl tracking-tight text-[#1a1a1a]" style={{fontFamily:"'Instrument Serif', serif", fontStyle:'italic'}}>
+                        Services.
+                      </h2>
+                      <p className="max-w-md font-medium text-neutral-500 mt-4" style={{fontFamily: "'Inter', sans-serif"}}>
+                        Our solutions are tailored to meet the unique challenges of modern
+                        brand activations, providing speed, reliability, and flexibility at
+                        every stage of the journey.
+                      </p>
+                    </div>
+                    <button 
+                      onClick={onClose}
+                      className="bg-[#1a1a1a] text-white rounded-full w-12 h-12 flex items-center justify-center hover:bg-black transition-colors"
+                    >
+                      <i className="ri-close-line text-2xl"></i>
+                    </button>
+                  </div>
+
+                  {/* List */}
+                  <div className="flex-1 flex flex-col justify-center relative">
+                    {projects.map((project, index) => (
+                      <Project
+                        index={index}
+                        key={project.title}
+                        setModal={setModal}
+                        title={project.title}
+                      />
+                    ))}
+                  </div>
+                </div>
+                
+                {/* GSAP Cursor Overlay */}
+                <CursorModal modal={modal} projects={projects} />
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      );
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // FEATURES SECTION
+    // ─────────────────────────────────────────────────────────────────────────
+    const features = [
+      {
+        id: 'feature-1',
+        title: 'Experiential Marketing & Brand Activations',
+        description: 'From mall activations and in-store product promotions to roadshows and consumer sampling campaigns, we create memorable brand experiences that drive engagement.',
+        video: 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260702_102608_5fa1187d-9ac6-44fb-82ab-54376200abc0.mp4'
+      },
+      {
+        id: 'feature-2',
+        title: 'Merchandising & Retail Operations',
+        description: 'We optimize product placement through retail merchandising, shelf management, stock monitoring, and POS material implementation for maximum retail visibility.',
+        video: 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260625_174131_395bc785-bb21-4e65-abf6-27c56f0764b6.mp4'
+      },
+      {
+        id: 'feature-3',
+        title: 'Event Management',
+        description: 'We handle end-to-end event execution for corporate events, product launches, business conferences, and brand experience events.',
+        video: 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260525_052706_d2e390fd-1846-4fe7-a4d8-8d2f1c875358.mp4'
+      },
+      {
+        id: 'feature-4',
+        title: 'Creative Production & Branding',
+        description: 'From custom exhibition structures and display units to corporate signage and retail wall branding, our creative installations bring your brand identity to life.',
+        video: 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260711_090308_1dd0cea7-f9ba-4db4-8147-c7d746061c9e.mp4'
+      },
+      {
+        id: 'feature-5',
+        title: 'Research & Market Auditing',
+        description: 'Gain vital market intelligence through promotional campaign audits, product performance tracking, and deep consumer insights to maximize campaign effectiveness.',
+        video: 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260702_102608_5fa1187d-9ac6-44fb-82ab-54376200abc0.mp4'
+      }
+    ];
+
+    const FeatureCard = ({ feature, index, onReadMore }) => {
+      const [revealed, setRevealed] = useState(false);
+      const ref = useRef(null);
+
+      useEffect(() => {
+        const observer = new IntersectionObserver(([entry]) => {
+          if (entry.isIntersecting) setRevealed(true);
+        }, { threshold: 0.15 });
+        if (ref.current) observer.observe(ref.current);
+        return () => observer.disconnect();
+      }, []);
+
+      return (
+        <div
+          id={feature.id}
+          ref={ref}
+          style={{
+            background:'#fff',
+            boxShadow:'0 2px 24px rgba(0,0,0,0.07)',
+            borderRadius:24, padding:'40px',
+            transition:'transform 700ms ease-out, opacity 700ms ease-out',
+            transform: revealed ? 'translateX(0)' : 'translateX(64px)',
+            opacity: revealed ? 1 : 0,
+          }}
+        >
+          <div style={{marginBottom:24}}>
+            <img src="../img/Faces-Integrated-Group__1_-removebg-preview.webp" alt="FIG Logo" style={{height:32, display:'block', objectFit:'contain'}} />
+          </div>
+          <h3 style={{color:'#1a1a1a', fontSize:22, fontWeight:500, marginBottom:24}}>{feature.title}</h3>
+          <video autoPlay muted loop playsInline style={{
+            width:'100%', aspectRatio:'16/9', borderRadius:16,
+            background:'#e8e8e8', display:'block', objectFit:'cover', marginBottom:24
+          }} src={feature.video} />
+          <p style={{color:'rgba(0,0,0,0.55)', fontWeight:500, fontSize:15, lineHeight:1.7, marginBottom:24}}>
+            {feature.description}
+          </p>
+          <button style={{
+            background:'#f0f0f0', color:'#1a1a1a', fontSize:13, fontWeight:600,
+            padding:'10px 24px', borderRadius:8, border:'none', cursor:'pointer',
+            textTransform:'uppercase', letterSpacing:'0.05em', transition:'all 200ms ease'
+          }}
+          onMouseEnter={e => e.currentTarget.style.background='#e0e0e0'}
+          onMouseLeave={e => e.currentTarget.style.background='#f0f0f0'}
+          onClick={onReadMore}
+          >
+            Read more
+          </button>
+        </div>
+      );
+    };
+
+    const FeaturesSection = ({ openModal }) => {
+      const [activeFeature, setActiveFeature] = useState('feature-1');
+      const cardRefs = useRef([]);
+
+      useEffect(() => {
+        const observer = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) setActiveFeature(entry.target.id);
+          });
+        }, { threshold: 0.6 });
+        cardRefs.current.forEach(el => el && observer.observe(el));
+        return () => observer.disconnect();
+      }, []);
+
+      const scrollTo = (id) => {
+        document.getElementById(id)?.scrollIntoView({ behavior:'smooth', block:'center' });
+      };
+
+      const isLg = window.innerWidth >= 1024;
+
+      return (
+        <section id="features" style={{position:'relative', padding:'80px 20px 120px'}}>
+          {/* Light BG */}
+          <div style={{
+            position:'fixed', inset:0, zIndex:-1,
+            background:'#f0f0f0'
+          }} />
+
+          <div style={{
+            display:'grid',
+            gridTemplateColumns: isLg ? '400px 1fr' : '1fr',
+            gap:64, maxWidth:1400, margin:'0 auto', position:'relative'
+          }}>
+            {/* Left — Sticky */}
+            <div style={isLg ? {
+              position:'sticky', top:0, height:'100vh',
+              display:'flex', flexDirection:'column', justifyContent:'space-between',
+              paddingTop:80, paddingBottom:80
+            } : {marginBottom:48}}>
+              <div>
+                <h2 style={{
+                  color:'#1a1a1a', fontWeight:400, lineHeight:1.2, marginBottom:40,
+                  fontSize:'clamp(24px, 3vw, 46px)'
+                }}>
+                  Core Marketing & Brand Solutions
+                </h2>
+
+                {isLg && (
+                  <div style={{display:'flex', flexDirection:'column', gap:12, alignItems:'flex-start'}}>
+                    {features.map(f => (
+                      <button key={f.id} onClick={() => scrollTo(f.id)} style={{
+                        textAlign:'left', padding:'16px 24px', borderRadius:16,
+                        border:'none', cursor:'pointer', fontWeight:500, fontSize:16,
+                        width:'100%', transition:'all 300ms',
+                        background: activeFeature === f.id ? 'rgba(0,0,0,0.08)' : 'rgba(0,0,0,0.04)',
+                        color: activeFeature === f.id ? '#1a1a1a' : 'rgba(0,0,0,0.4)',
+                      }}>
+                        {f.title}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {isLg && (
+                <div style={{display:'flex', flexDirection:'column', gap:20, marginTop:40}}>
+                  <p style={{color:'rgba(0,0,0,0.6)', fontWeight:500, maxWidth:260}}>
+                    Explore our capabilities to see how we build brands through operational excellence.
+                  </p>
+                  <button style={{
+                    background:'#1a1a1a', color:'#fff', fontSize:14, fontWeight:500,
+                    padding:'10px 20px', borderRadius:10, border:'none', cursor:'pointer',
+                    alignSelf:'flex-start'
+                  }}>View Portfolio</button>
+                </div>
+              )}
+            </div>
+
+            {/* Right — Cards */}
+            <div style={{display:'flex', flexDirection:'column', gap:48, paddingBottom:80}}>
+              {features.map((feature, i) => (
+                <div key={feature.id} id={feature.id}
+                  ref={el => {
+                    cardRefs.current[i] = el;
+                  }}
+                >
+                  <FeatureCard feature={feature} index={i} onReadMore={openModal} />
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+    };
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // FIG FOOTER
+    // ─────────────────────────────────────────────────────────────────────────
+    const FIGFooter = () => {
+      const linkStyle = {
+        fontSize:17, color:'#000', textDecoration:'none', fontWeight:500,
+        fontFamily:'Helvetica, sans-serif', display:'block',
+      };
+      const labelStyle = {
+        marginBottom:18, fontSize:14, opacity:0.5,
+        fontFamily:'Helvetica, sans-serif', textTransform:'uppercase',
+      };
+
+      return (
+        <footer style={{background:'#f0f0f0', paddingBottom:0}}>
+          {/* Main footer row */}
+          <div style={{
+            display:'flex', alignItems:'flex-start', justifyContent:'space-between',
+            flexWrap:'wrap', paddingTop:100, paddingBottom:40,
+            paddingLeft:'clamp(20px,4vw,60px)', paddingRight:'clamp(20px,4vw,60px)', gap:40,
+          }}>
+
+            {/* Connect column */}
+            <div style={{display:'flex', flexDirection:'column', gap:8, minWidth:140}}>
+              <p style={labelStyle}>CONNECT WITH US</p>
+              {['Facebook','Instagram','Twitter','LinkedIn','YouTube'].map(s => (
+                <a key={s} href="javascript:void(0);" style={linkStyle}
+                  onMouseEnter={e => e.currentTarget.style.opacity='0.6'}
+                  onMouseLeave={e => e.currentTarget.style.opacity='1'}>
+                  {s}
+                </a>
+              ))}
+            </div>
+
+            {/* Centre: logo + copyright */}
+            <div style={{display:'flex', flexDirection:'column', alignItems:'center', flex:'1 1 260px'}}>
+              <img
+                src="../img/Faces-Integrated-Group__1_-removebg-preview.webp"
+                alt="FIG Logo"
+                style={{height:120, objectFit:'contain', filter:'grayscale(1) brightness(0) contrast(1)', opacity:0.15}}
+              />
+              <div style={{marginTop:32, display:'flex', flexWrap:'wrap', justifyContent:'center', gap:'0 24px'}}>
+                {['© FACES INTEGRATED GROUP 2026','TERMS OF USE','PRIVACY POLICY'].map(t => (
+                  <a key={t} href="javascript:void(0);"
+                    style={{textDecoration:'none', color:'#000', opacity:0.5,
+                      fontSize:13, fontFamily:'Helvetica, sans-serif'}}>
+                    {t}
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            {/* Nitty Gritties column */}
+            <div style={{display:'flex', flexDirection:'column', gap:8, alignItems:'flex-end', minWidth:140}}>
+              <p style={{...labelStyle, textAlign:'right'}}>THE NITTY GRITTIES</p>
+              {['Activation FAQs','Retail Audit FAQs','Event Management','Regional Reach','Careers'].map(l => (
+                <a key={l} href="javascript:void(0);" style={{...linkStyle, textAlign:'right'}}
+                  onMouseEnter={e => e.currentTarget.style.opacity='0.6'}
+                  onMouseLeave={e => e.currentTarget.style.opacity='1'}>
+                  {l}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Footer blurb */}
+          <div style={{
+            width:'70%', margin:'0 auto', paddingTop:40, paddingBottom:40,
+            textAlign:'center', borderTop:'1px solid rgba(0,0,0,0.08)',
+          }}>
+            <p style={{fontSize:16, lineHeight:'1.7', color:'rgba(0,0,0,0.6)', fontFamily:'Helvetica, sans-serif'}}>
+              Faces Integrated Group (FIG) is a leading experiential marketing and brand activation agency dedicated to helping businesses build stronger connections with their customers through innovative, results-driven marketing solutions. Guided by our motto &quot;WE BUILD BRANDS&quot;, FIG provides end-to-end brand experience solutions including experiential marketing, retail merchandising, event management, creative production, and market auditing for top FMCG brands and corporate organizations across East Africa.
+            </p>
+          </div>
+
+          {/* Large watermark */}
+          <div style={{width:'100%', textAlign:'center', overflow:'hidden', paddingBottom:24, pointerEvents:'none'}}>
+            <h1 style={{
+              fontSize:'clamp(48px, 9vw, 9vw)',
+              fontWeight:700, color:'rgba(30,50,90,0.08)',
+              textTransform:'uppercase', lineHeight:1,
+              letterSpacing:'-0.04em', whiteSpace:'nowrap',
+              fontFamily:'Helvetica, sans-serif',
+            }}>
+              Faces Integrated Group
+            </h1>
+          </div>
+        </footer>
+      );
+    };
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // APP
+    // ─────────────────────────────────────────────────────────────────────────
+    const App = () => {
+      const [isModalOpen, setIsModalOpen] = useState(false);
+
+      return (
+        <div style={{minHeight:'100vh', background:'#f0f0f0'}}>
+          <Navbar />
+          <main>
+            <HeroSection />
+            <AboutSection />
+            <FeaturesSection openModal={() => setIsModalOpen(true)} />
+          </main>
+          <FIGFooter />
+          <AnimatedModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+        </div>
+      );
+    };
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+  <style>
+    @keyframes fadeInDown {
+      from { opacity:0; transform:translateY(-8px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+  </style>
+</body>
+</html>

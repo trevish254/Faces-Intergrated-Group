@@ -25,12 +25,24 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Mobile menu toggle
+// Mobile menu toggle — targets the dedicated mobile dropdown (not the desktop pill nav)
 const menuBtn = document.querySelector('#menu-btn');
-const linksContainer = document.querySelector('#links');
-if (menuBtn && linksContainer) {
+const mobileDropdown = document.querySelector('#links-mobile-dropdown');
+if (menuBtn && mobileDropdown) {
     menuBtn.addEventListener('click', () => {
-        linksContainer.classList.toggle('active');
+        mobileDropdown.classList.toggle('active');
+    });
+    // Close dropdown when a link inside it is clicked
+    mobileDropdown.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            mobileDropdown.classList.remove('active');
+        });
+    });
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!menuBtn.contains(e.target) && !mobileDropdown.contains(e.target)) {
+            mobileDropdown.classList.remove('active');
+        }
     });
 }
 
@@ -60,7 +72,7 @@ ScrollTrigger.refresh();
 locomotiveAnimations();
 
 function navbarAnimation() {
-    gsap.to("#nav-part1 svg", {
+    gsap.to("#nav-part1 img", {
         transform: "translateY(-100%)",
         scrollTrigger: {
             trigger: "#page1",
@@ -68,20 +80,9 @@ function navbarAnimation() {
             start: "top 0%",
             end: "top -5%",
             scrub: true,
-            // markers:true
         }
     })
-    gsap.to("#nav-part2 #links", {
-        transform: "translateY(-100%)",
-        opacity: 0,
-        scrollTrigger: {
-            trigger: "#page1",
-            scroller: "#main",
-            start: "top 0",
-            end: "top -5%",
-            scrub: true,
-        }
-    })
+    // Links remain permanently visible; no hide animation.
 }
 navbarAnimation();
 
@@ -228,3 +229,24 @@ function horizontalSlider() {
 }
 horizontalSlider();
 
+function effect087() {
+    const section = document.querySelector('.mwg_effect087');
+    if(!section) return;
+    
+    let cards = gsap.utils.toArray('.mwg_effect087 .card');
+    let cardsContainer = document.querySelector('.mwg_effect087 .cards');
+    
+    gsap.to(cards, {
+        xPercent: -100 * (cards.length - 1),
+        ease: "none",
+        scrollTrigger: {
+            trigger: section,
+            scroller: "#main",
+            pin: true,
+            scrub: 1,
+            snap: 1 / (cards.length - 1),
+            end: () => "+=" + cardsContainer.offsetWidth
+        }
+    });
+}
+effect087();

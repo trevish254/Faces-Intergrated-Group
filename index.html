@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Faces Integrated Group (FIG) - WE BUILD BRANDS</title>
-    <link rel="icon" href="./favicon.png" type="image/png">
+    <link rel="icon" href="./favicon.webp" type="image/png">
     <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.css">
@@ -27,22 +27,31 @@
 <body>
     <div id="nav">
         <div id="nav-part1">
-            <img src="./img/Faces-Integrated-Group__1_-removebg-preview.png" alt="FIG Logo" style="height: 70px;">
+            <img src="./img/Faces-Integrated-Group__1_-removebg-preview.webp" alt="FIG Logo" style="height: 70px;">
         </div>
         <div id="nav-part2">
+            <!-- Desktop pill nav links (hidden on mobile via CSS) -->
             <div id="links">
-                <a href="#slider-section">Services</a>
-                <a href="#page3">Partners</a>
-                <a href="#page4">About Us</a>
+                <a href="./services/index.html">Services</a>
+                <a href="./blog/index.html">Blog</a>
+                <a href="./about-us/index.html">About Us</a>
+                <a href="./contact-us/index.html">Contact Us</a>
             </div>
             <div id="icons">
                 <i class="ri-menu-fill cursor-pointer" id="menu-btn"></i>
                 <i class="ri-shopping-cart-2-line"></i>
             </div>
         </div>
+        <!-- Mobile hamburger dropdown (separate from desktop pill) -->
+        <div id="links-mobile-dropdown">
+            <a href="./services/index.html">Services</a>
+            <a href="./blog/index.html">Blog</a>
+            <a href="./about-us/index.html">About Us</a>
+            <a href="./contact-us/index.html">Contact Us</a>
+        </div>
     </div>
     <div id="cursor"></div>
-    <div id="main">
+    <div id="main" data-scroll-container>
         <div id="page1" class="w-full h-screen flex items-center justify-center p-3 md:p-5 bg-[#f0f0f0]">
             <section class="relative w-full max-w-[1536px] h-full rounded-[1.5rem] md:rounded-[3rem] overflow-hidden shadow-none flex flex-col items-center bg-white/10 group">
                 <video autoplay muted loop playsinline class="block md:hidden absolute inset-0 w-full h-full object-cover z-0" src="./img/Clouds_move_across_sky_202607221837_mobile version.mp4"></video>
@@ -102,7 +111,7 @@
         <div id="page2">
             <div id="elem1" class="elem">
                 <img data-scroll data-scroll-speed="1"
-                    src="./img/FIG mockups/FIG1.jpg"
+                    src="./img/FIG mockups/FIG1.webp"
                     alt="">
                 <div data-scroll data-scroll-speed="-2" class="dets">
                     <div class="dets-info" style="background-color: #B4D5B6;">
@@ -129,7 +138,7 @@
             </div>
             <div id="elem2" class="elem">
                 <img data-scroll data-scroll-speed="1"
-                    src="./img/FIG mockups/FIG3.jpg"
+                    src="./img/FIG mockups/FIG3.webp"
                     alt="">
                 <div data-scroll data-scroll-speed="-2" class="dets">
                     <div class="dets-info">
@@ -157,7 +166,7 @@
             </div>
             <div id="elem3" class="elem">
                 <img data-scroll data-scroll-speed="1"
-                    src="./img/FIG mockups/FIG7.jpg"
+                    src="./img/FIG mockups/FIG7.webp"
                     alt="">
                 <div data-scroll data-scroll-speed="-2" class="dets">
                     <div class="dets-info" style="background-color: #fff;">
@@ -193,7 +202,7 @@
         </div>
         <div id="page3">
             <div class="child" id="child1" data-color="#D4D0D3">
-                <img src="./img/Fig partner logos/FIG5.jpg"
+                <img src="./img/Fig partner logos/FIG5.webp"
                     alt="">
                 <div class="childInfo">
                     <a href="#">FIG Corporate Signage</a>
@@ -201,7 +210,7 @@
                 </div>
             </div>
             <div class="child" id="child2" data-color="#E6DFD7">
-                <img src="./img/Fig partner logos/WhatsApp%20Image%202026-07-23%20at%203.30.05%20AM%20(1).jpeg"
+                <img src="./img/Fig partner logos/WhatsApp%20Image%202026-07-23%20at%203.30.05%20AM%20(1).webp"
                     alt="">
                 <div class="childInfo">
                     <a href="#">FIG Brand Guidelines</a>
@@ -209,7 +218,7 @@
                 </div>
             </div>
             <div class="child" id="child3" data-color="#E6DFD7">
-                <img src="./img/Fig partner logos/java.jpeg"
+                <img src="./img/Fig partner logos/java.webp"
                     alt="">
                 <div class="childInfo">
                     <a href="#">Java House Logistics</a>
@@ -217,7 +226,7 @@
                 </div>
             </div>
             <div class="child" id="child4" data-color="#B4D5B6">
-                <img src="./img/Fig partner logos/img4.jpg"
+                <img src="./img/Fig partner logos/img4.webp"
                     alt="">
                 <div class="childInfo">
                     <a href="#">FIG Merchandise</a>
@@ -241,7 +250,7 @@
                 <div class="slider-wrapper">
                     <!-- Service 1 -->
                     <div class="slide" data-service="Experiential Marketing & Brand Activations">
-                        <img src="./img/Fig services/WhatsApp Image 2026-07-23 at 5.37.34 AM.jpeg" alt="Experiential Marketing & Brand Activations" />
+                        <img src="./img/Fig services/WhatsApp Image 2026-07-23 at 5.37.34 AM.webp" alt="Experiential Marketing & Brand Activations" />
                         <div class="slide-overlay"></div>
                         <div class="slide-content">
                             <span class="service-num">01</span>
@@ -262,7 +271,7 @@
                     </div>
                     <!-- Service 2 -->
                     <div class="slide" data-service="Merchandising & Retail Operations">
-                        <img src="./img/Fig services/WhatsApp Image 2026-07-23 at 5.40.01 AM (1).jpeg" alt="Merchandising & Retail Operations" />
+                        <img src="./img/Fig services/WhatsApp Image 2026-07-23 at 5.40.01 AM (1).webp" alt="Merchandising & Retail Operations" />
                         <div class="slide-overlay"></div>
                         <div class="slide-content">
                             <span class="service-num">02</span>
@@ -283,7 +292,7 @@
                     </div>
                     <!-- Service 3 -->
                     <div class="slide" data-service="Event Management">
-                        <img src="./img/Fig services/WhatsApp Image 2026-07-23 at 5.44.14 AM.jpeg" alt="Event Management" />
+                        <img src="./img/Fig services/WhatsApp Image 2026-07-23 at 5.44.14 AM.webp" alt="Event Management" />
                         <div class="slide-overlay"></div>
                         <div class="slide-content">
                             <span class="service-num">03</span>
@@ -304,7 +313,7 @@
                     </div>
                     <!-- Service 4 -->
                     <div class="slide" data-service="Creative Production & Branding">
-                        <img src="./img/Fig services/WhatsApp Image 2026-07-23 at 5.48.14 AM.jpeg" alt="Creative Production & Branding" />
+                        <img src="./img/Fig services/WhatsApp Image 2026-07-23 at 5.48.14 AM.webp" alt="Creative Production & Branding" />
                         <div class="slide-overlay"></div>
                         <div class="slide-content">
                             <span class="service-num">04</span>
@@ -325,7 +334,7 @@
                     </div>
                     <!-- Service 5 -->
                     <div class="slide" data-service="Research & Market Auditing">
-                        <img src="./img/Fig services/WhatsApp Image 2026-07-23 at 5.49.35 AM.jpeg" alt="Research & Market Auditing" />
+                        <img src="./img/Fig services/WhatsApp Image 2026-07-23 at 5.49.35 AM.webp" alt="Research & Market Auditing" />
                         <div class="slide-overlay"></div>
                         <div class="slide-content">
                             <span class="service-num">05</span>
@@ -350,61 +359,103 @@
         
         <div id="logo-cloud-section" class="w-full bg-[#f0f0f0] py-12 md:py-16 overflow-hidden">
             <div class="w-full text-center mb-8">
-                <p class="text-[18px] md:text-[22px] font-bold uppercase tracking-widest text-[#5E6470] font-helvetica">Brands we've worked with</p>
+                <p class="text-[18px] md:text-[22px] font-thin uppercase tracking-widest text-[#5E6470] font-helvetica">Our trusted clients</p>
             </div>
             <div class="logo-marquee-container flex overflow-hidden w-full relative">
                 <!-- Set 1 -->
                 <div class="logo-marquee flex items-center gap-12 md:gap-16 pr-12 md:pr-16 shrink-0">
                     <div class="logo-item flex items-center justify-center">
-                        <img src="./img/Trusted brands/f4fdc068383d-640-removebg-preview.png" alt="Trusted Brand" class="h-12 md:h-16 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity">
+                        <img src="./FIG%20new%20partner%20logos/WhatsApp%20Image%202026-07-24%20at%202.24.15%20AM%20(1).png" alt="Trusted Brand" class="h-12 md:h-16 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity">
                     </div>
                     <div class="logo-item flex items-center justify-center">
-                        <img src="./img/Trusted brands/icing-sugar-10-removebg-preview.png" alt="Trusted Brand" class="h-12 md:h-16 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity">
+                        <img src="./FIG%20new%20partner%20logos/WhatsApp%20Image%202026-07-24%20at%202.24.15%20AM.png" alt="Trusted Brand" class="h-12 md:h-16 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity">
                     </div>
                     <div class="logo-item flex items-center justify-center">
-                        <img src="./img/Trusted brands/images-removebg-preview (1).png" alt="Trusted Brand" class="h-12 md:h-16 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity">
+                        <img src="./FIG%20new%20partner%20logos/WhatsApp%20Image%202026-07-24%20at%202.24.16%20AM.png" alt="Trusted Brand" class="h-12 md:h-16 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity">
                     </div>
                     <div class="logo-item flex items-center justify-center">
-                        <img src="./img/Trusted brands/images-removebg-preview.png" alt="Trusted Brand" class="h-12 md:h-16 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity">
+                        <img src="./FIG%20new%20partner%20logos/WhatsApp%20Image%202026-07-24%20at%202.24.17%20AM%20(1).png" alt="Trusted Brand" class="h-12 md:h-16 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity">
                     </div>
                     <div class="logo-item flex items-center justify-center">
-                        <img src="./img/Trusted brands/images__1_-removebg-preview.png" alt="Trusted Brand" class="h-12 md:h-16 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity">
+                        <img src="./FIG%20new%20partner%20logos/WhatsApp%20Image%202026-07-24%20at%202.24.17%20AM.png" alt="Trusted Brand" class="h-12 md:h-16 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity">
                     </div>
                     <div class="logo-item flex items-center justify-center">
-                        <img src="./img/Trusted brands/images__3_-removebg-preview.png" alt="Trusted Brand" class="h-12 md:h-16 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity">
+                        <img src="./FIG%20new%20partner%20logos/WhatsApp%20Image%202026-07-24%20at%202.24.18%20AM%20(1).png" alt="Trusted Brand" class="h-12 md:h-16 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity">
                     </div>
                     <div class="logo-item flex items-center justify-center">
-                        <img src="./img/Trusted brands/images__4_-removebg-preview.png" alt="Trusted Brand" class="h-12 md:h-16 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity">
+                        <img src="./FIG%20new%20partner%20logos/WhatsApp%20Image%202026-07-24%20at%202.24.18%20AM.png" alt="Trusted Brand" class="h-12 md:h-16 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity">
                     </div>
                     <div class="logo-item flex items-center justify-center">
-                        <img src="./img/Trusted brands/images__5_-removebg-preview.png" alt="Trusted Brand" class="h-12 md:h-16 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity">
+                        <img src="./FIG%20new%20partner%20logos/WhatsApp%20Image%202026-07-24%20at%202.24.19%20AM.png" alt="Trusted Brand" class="h-12 md:h-16 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity">
+                    </div>
+                    <div class="logo-item flex items-center justify-center">
+                        <img src="./FIG%20new%20partner%20logos/WhatsApp%20Image%202026-07-24%20at%202.24.20%20AM%20(2).png" alt="Trusted Brand" class="h-12 md:h-16 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity">
+                    </div>
+                    <div class="logo-item flex items-center justify-center">
+                        <img src="./FIG%20new%20partner%20logos/WhatsApp%20Image%202026-07-24%20at%202.24.20%20AM.png" alt="Trusted Brand" class="h-12 md:h-16 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity">
+                    </div>
+                    <div class="logo-item flex items-center justify-center">
+                        <img src="./FIG%20new%20partner%20logos/WhatsApp%20Image%202026-07-24%20at%202.24.21%20AM.png" alt="Trusted Brand" class="h-12 md:h-16 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity">
+                    </div>
+                    <div class="logo-item flex items-center justify-center">
+                        <img src="./FIG%20new%20partner%20logos/WhatsApp%20Image%202026-07-24%20at%202.24.22%20AM.png" alt="Trusted Brand" class="h-12 md:h-16 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity">
+                    </div>
+                    <div class="logo-item flex items-center justify-center">
+                        <img src="./FIG%20new%20partner%20logos/WhatsApp%20Image%202026-07-24%20at%202.24.23%20AM%20(1).png" alt="Trusted Brand" class="h-12 md:h-16 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity">
+                    </div>
+                    <div class="logo-item flex items-center justify-center">
+                        <img src="./FIG%20new%20partner%20logos/WhatsApp%20Image%202026-07-24%20at%202.24.23%20AM.png" alt="Trusted Brand" class="h-12 md:h-16 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity">
+                    </div>
+                    <div class="logo-item flex items-center justify-center">
+                        <img src="./FIG%20new%20partner%20logos/WhatsApp%20Image%202026-07-24%20at%202.26.58%20AM.png" alt="Trusted Brand" class="h-12 md:h-16 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity">
                     </div>
                 </div>
                 <!-- Set 2 -->
                 <div class="logo-marquee flex items-center gap-12 md:gap-16 pr-12 md:pr-16 shrink-0" aria-hidden="true">
                     <div class="logo-item flex items-center justify-center">
-                        <img src="./img/Trusted brands/f4fdc068383d-640-removebg-preview.png" alt="Trusted Brand" class="h-12 md:h-16 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity">
+                        <img src="./FIG%20new%20partner%20logos/WhatsApp%20Image%202026-07-24%20at%202.24.15%20AM%20(1).png" alt="Trusted Brand" class="h-12 md:h-16 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity">
                     </div>
                     <div class="logo-item flex items-center justify-center">
-                        <img src="./img/Trusted brands/icing-sugar-10-removebg-preview.png" alt="Trusted Brand" class="h-12 md:h-16 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity">
+                        <img src="./FIG%20new%20partner%20logos/WhatsApp%20Image%202026-07-24%20at%202.24.15%20AM.png" alt="Trusted Brand" class="h-12 md:h-16 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity">
                     </div>
                     <div class="logo-item flex items-center justify-center">
-                        <img src="./img/Trusted brands/images-removebg-preview (1).png" alt="Trusted Brand" class="h-12 md:h-16 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity">
+                        <img src="./FIG%20new%20partner%20logos/WhatsApp%20Image%202026-07-24%20at%202.24.16%20AM.png" alt="Trusted Brand" class="h-12 md:h-16 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity">
                     </div>
                     <div class="logo-item flex items-center justify-center">
-                        <img src="./img/Trusted brands/images-removebg-preview.png" alt="Trusted Brand" class="h-12 md:h-16 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity">
+                        <img src="./FIG%20new%20partner%20logos/WhatsApp%20Image%202026-07-24%20at%202.24.17%20AM%20(1).png" alt="Trusted Brand" class="h-12 md:h-16 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity">
                     </div>
                     <div class="logo-item flex items-center justify-center">
-                        <img src="./img/Trusted brands/images__1_-removebg-preview.png" alt="Trusted Brand" class="h-12 md:h-16 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity">
+                        <img src="./FIG%20new%20partner%20logos/WhatsApp%20Image%202026-07-24%20at%202.24.17%20AM.png" alt="Trusted Brand" class="h-12 md:h-16 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity">
                     </div>
                     <div class="logo-item flex items-center justify-center">
-                        <img src="./img/Trusted brands/images__3_-removebg-preview.png" alt="Trusted Brand" class="h-12 md:h-16 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity">
+                        <img src="./FIG%20new%20partner%20logos/WhatsApp%20Image%202026-07-24%20at%202.24.18%20AM%20(1).png" alt="Trusted Brand" class="h-12 md:h-16 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity">
                     </div>
                     <div class="logo-item flex items-center justify-center">
-                        <img src="./img/Trusted brands/images__4_-removebg-preview.png" alt="Trusted Brand" class="h-12 md:h-16 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity">
+                        <img src="./FIG%20new%20partner%20logos/WhatsApp%20Image%202026-07-24%20at%202.24.18%20AM.png" alt="Trusted Brand" class="h-12 md:h-16 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity">
                     </div>
                     <div class="logo-item flex items-center justify-center">
-                        <img src="./img/Trusted brands/images__5_-removebg-preview.png" alt="Trusted Brand" class="h-12 md:h-16 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity">
+                        <img src="./FIG%20new%20partner%20logos/WhatsApp%20Image%202026-07-24%20at%202.24.19%20AM.png" alt="Trusted Brand" class="h-12 md:h-16 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity">
+                    </div>
+                    <div class="logo-item flex items-center justify-center">
+                        <img src="./FIG%20new%20partner%20logos/WhatsApp%20Image%202026-07-24%20at%202.24.20%20AM%20(2).png" alt="Trusted Brand" class="h-12 md:h-16 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity">
+                    </div>
+                    <div class="logo-item flex items-center justify-center">
+                        <img src="./FIG%20new%20partner%20logos/WhatsApp%20Image%202026-07-24%20at%202.24.20%20AM.png" alt="Trusted Brand" class="h-12 md:h-16 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity">
+                    </div>
+                    <div class="logo-item flex items-center justify-center">
+                        <img src="./FIG%20new%20partner%20logos/WhatsApp%20Image%202026-07-24%20at%202.24.21%20AM.png" alt="Trusted Brand" class="h-12 md:h-16 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity">
+                    </div>
+                    <div class="logo-item flex items-center justify-center">
+                        <img src="./FIG%20new%20partner%20logos/WhatsApp%20Image%202026-07-24%20at%202.24.22%20AM.png" alt="Trusted Brand" class="h-12 md:h-16 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity">
+                    </div>
+                    <div class="logo-item flex items-center justify-center">
+                        <img src="./FIG%20new%20partner%20logos/WhatsApp%20Image%202026-07-24%20at%202.24.23%20AM%20(1).png" alt="Trusted Brand" class="h-12 md:h-16 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity">
+                    </div>
+                    <div class="logo-item flex items-center justify-center">
+                        <img src="./FIG%20new%20partner%20logos/WhatsApp%20Image%202026-07-24%20at%202.24.23%20AM.png" alt="Trusted Brand" class="h-12 md:h-16 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity">
+                    </div>
+                    <div class="logo-item flex items-center justify-center">
+                        <img src="./FIG%20new%20partner%20logos/WhatsApp%20Image%202026-07-24%20at%202.26.58%20AM.png" alt="Trusted Brand" class="h-12 md:h-16 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity">
                     </div>
                 </div>
             </div>
@@ -431,15 +482,49 @@
                 </div>
                 <div id="images">
                     <img data-scroll data-scroll-speed="1"
-                        src="./img/fig celestine/WhatsApp Image 2026-07-23 at 7.13.33 AM.jpeg"
+                        src="./img/fig celestine/WhatsApp Image 2026-07-23 at 7.13.33 AM.webp"
                         alt="">
                     <img data-scroll data-scroll-speed="1"
-                        src="./img/fig celestine/maneken-UBX35.jpg"
+                        src="./img/fig celestine/maneken-UBX35.webp"
                         alt="">
                 </div>
             </div>
             <hr>
         </div>
+        <section class="mwg_effect087">
+            <div class="container">
+                <div class="cards">
+                    <div class="card">
+                        <div class="card-content">
+                            <p class="top">"Faces Integrated Group transformed our brand visibility completely."</p>
+                            <div class="bottom">
+                                <img src="./img/img1.webp" alt="Client 1">
+                                <p>Sarah Jenkins, Marketing Director</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-content">
+                            <p class="top">"The most dedicated and creative experiential agency in East Africa."</p>
+                            <div class="bottom">
+                                <img src="./img/img2.webp" alt="Client 2">
+                                <p>David Ochieng, Brand Manager</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-content">
+                            <p class="top">"Their market auditing gave us insights we never knew we needed."</p>
+                            <div class="bottom">
+                                <img src="./img/img3.webp" alt="Client 3">
+                                <p>Grace Mutheu, Retail Strategy Lead</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <div id="page5">
             <div id="footer">
                 <div id="connect">
@@ -451,7 +536,7 @@
                     <a href="javascript:void(0);">YouTube</a>
                 </div>
                 <div id="logo">
-                    <img src="./img/Faces-Integrated-Group__1_-removebg-preview.png" alt="FIG Logo" style="height: 120px; filter: grayscale(1) brightness(100) contrast(0);">
+                    <img src="./img/Faces-Integrated-Group__1_-removebg-preview.webp" alt="FIG Logo" style="height: 120px; filter: grayscale(1) brightness(100) contrast(0);">
                     <div id="copyright">
                         <a href="javascript:void(0);">&copy; FACES INTEGRATED GROUP 2026</a>
                         <a href="javascript:void(0);">TERMS OF USE</a>

@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog — Faces Integrated Group</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #ffffff;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .font-outfit { font-family: 'Outfit', sans-serif; }
+    
+    /* Blog Container styles */
+    .blog-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 20px;
+      margin-top: 100px; /* space for global fixed navbar */
+    }
+
+    .video-container {
+      position: relative;
+      overflow: hidden;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+    
+    .video-container video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s cubic-bezier(0.33, 1, 0.68, 1);
+    }
+
+    .video-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.25);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+    }
+    
+    .video-icon {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 24px;
+      font-weight: 300;
+      transform: scale(0.7);
+      transition: transform 0.3s ease;
+    }
+
+    /* Brackets */
+    .bracket {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      z-index: 3;
+    }
+    .bracket-tl { top: 15px; left: 15px; border-top: 1.5px solid white; border-left: 1.5px solid white; }
+    .bracket-tr { top: 15px; right: 15px; border-top: 1.5px solid white; border-right: 1.5px solid white; }
+    .bracket-bl { bottom: 15px; left: 15px; border-bottom: 1.5px solid white; border-left: 1.5px solid white; }
+    .bracket-br { bottom: 15px; right: 15px; border-bottom: 1.5px solid white; border-right: 1.5px solid white; }
+
+    /* Hover states */
+    .video-container:hover video { transform: scale(1.08); }
+    .video-container:hover .video-overlay { opacity: 1; }
+    .video-container:hover .video-icon { transform: scale(1); }
+    .video-container:hover .bracket { opacity: 1; }
+    
+    /* Responsive utilities */
+    @media (max-width: 1024px) {
+      .featured-post { grid-template-columns: 1fr !important; }
+      .featured-post-content { padding: 40px !important; }
+      .blog-grid { grid-template-columns: repeat(2, 1fr) !important; }
+    }
+    
+    @media (max-width: 768px) {
+      .blog-heading { font-size: 48px !important; letter-spacing: -1.5px !important; }
+      .header-bottom { flex-direction: column !important; align-items: flex-start !important; gap: 20px !important; }
+      .blog-grid { grid-template-columns: 1fr !important; }
+      .featured-title { font-size: 32px !important; }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+
+    const Navbar = () => {
+      const [isOpen, setIsOpen] = useState(false);
+      const navLinks = [
+        { label: 'Services',    href: '../services/index.html' },
+        { label: 'Blog',        href: '../blog/index.html' },
+        { label: 'About Us',    href: '../about-us/index.html' },
+        { label: 'Contact Us',  href: '../contact-us/index.html' },
+        { label: '← Home',     href: '../index.html' },
+      ];
+
+      return (
+        <div style={{
+          width:'100%', position:'fixed', zIndex:99,
+          padding:'20px 25px', display:'flex',
+          alignItems:'flex-start', justifyContent:'space-between',
+          top:0, left:0, pointerEvents:'none',
+        }}>
+          {/* Logo */}
+          <div style={{height:70, overflow:'hidden', pointerEvents:'auto'}}>
+            <a href="../index.html">
+              <img
+                src="../img/Faces-Integrated-Group__1_-removebg-preview.webp"
+                alt="FIG Logo"
+                style={{height:70, display:'block'}}
+              />
+            </a>
+          </div>
+
+          {/* Right side */}
+          <div style={{display:'flex', alignItems:'center', gap:24, pointerEvents:'auto'}}>
+            {/* Desktop links — hidden on mobile via Tailwind 'hidden md:flex' */}
+            <div style={{
+              flexDirection:'row', alignItems:'center', gap:24,
+              background:'rgba(255,255,255,0.88)', backdropFilter:'blur(10px)',
+              padding:'12px 20px', borderRadius:50, boxShadow:'0 4px 16px rgba(0,0,0,0.06)',
+              border:'1px solid rgba(0,0,0,0.06)',
+            }} className="hidden md:flex">
+              {navLinks.map(link => (
+                <a key={link.label} href={link.href} style={{
+                  textTransform:'uppercase', textDecoration:'none', color:'#333',
+                  fontWeight:500, fontSize:13, fontFamily:'Helvetica, sans-serif',
+                  transition:'color 200ms', whiteSpace:'nowrap',
+                }}
+                onMouseEnter={e => e.currentTarget.style.color='#000'}
+                onMouseLeave={e => e.currentTarget.style.color='#333'}
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
+
+            {/* Mobile menu pill */}
+            <div style={{
+              padding:'10px', borderRadius:50, background:'rgba(247,247,247,0.85)',
+              backdropFilter:'blur(8px)', display:'flex', alignItems:'center',
+            }}>
+              <i className="ri-menu-fill" style={{fontSize:18, margin:'0 16px', fontWeight:100, cursor:'pointer'}} onClick={() => setIsOpen(!isOpen)} />
+              <i className="ri-shopping-cart-2-line" style={{fontSize:18, margin:'0 16px', fontWeight:100}} />
+            </div>
+
+            {/* Mobile dropdown */}
+            {isOpen && (
+              <div style={{
+                display:'flex', flexDirection:'column', position:'absolute', top:80, right:40,
+                background:'rgba(255,255,255,0.97)', backdropFilter:'blur(10px)',
+                padding:'20px', borderRadius:12, boxShadow:'0 10px 30px rgba(0,0,0,0.1)',
+                gap:20, border:'1px solid rgba(0,0,0,0.05)', alignItems:'flex-start', zIndex:999,
+              }}>
+                {navLinks.map(link => (
+                  <a key={link.label} href={link.href} style={{
+                    textTransform:'uppercase', textDecoration:'none', color:'#333',
+                    fontWeight:500, fontSize:14, fontFamily:'Helvetica, sans-serif',
+                  }} onClick={() => setIsOpen(false)}>
+                    {link.label}
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      );
+    };
+
+    const FIGFooter = () => {
+      const linkStyle = { fontSize:17, color:'#000', textDecoration:'none', fontWeight:500, fontFamily:'Helvetica, sans-serif', display:'block' };
+      const labelStyle = { marginBottom:18, fontSize:14, opacity:0.5, fontFamily:'Helvetica, sans-serif', textTransform:'uppercase' };
+      return (
+        <footer style={{background:'#f0f0f0', paddingBottom:0}}>
+          <div style={{display:'flex', alignItems:'flex-start', justifyContent:'space-between', flexWrap:'wrap', paddingTop:100, paddingBottom:40, paddingLeft:'clamp(20px,4vw,60px)', paddingRight:'clamp(20px,4vw,60px)', gap:40}}>
+            <div style={{display:'flex', flexDirection:'column', gap:8, minWidth:140}}>
+              <p style={labelStyle}>CONNECT WITH US</p>
+              {['Facebook','Instagram','Twitter','LinkedIn','YouTube'].map(s => (
+                <a key={s} href="javascript:void(0);" style={linkStyle} onMouseEnter={e => e.currentTarget.style.opacity='0.6'} onMouseLeave={e => e.currentTarget.style.opacity='1'}>{s}</a>
+              ))}
+            </div>
+            <div style={{display:'flex', flexDirection:'column', alignItems:'center', flex:'1 1 260px'}}>
+              <img src="../img/Faces-Integrated-Group__1_-removebg-preview.webp" alt="FIG Logo" style={{height:120, objectFit:'contain', filter:'grayscale(1) brightness(0) contrast(1)', opacity:0.15}} />
+              <div style={{marginTop:32, display:'flex', flexWrap:'wrap', justifyContent:'center', gap:'0 24px'}}>
+                {['© FACES INTEGRATED GROUP 2026','TERMS OF USE','PRIVACY POLICY'].map(t => (
+                  <a key={t} href="javascript:void(0);" style={{textDecoration:'none', color:'#000', opacity:0.5, fontSize:13, fontFamily:'Helvetica, sans-serif'}}>{t}</a>
+                ))}
+              </div>
+            </div>
+            <div style={{display:'flex', flexDirection:'column', gap:8, alignItems:'flex-end', minWidth:140}}>
+              <p style={{...labelStyle, textAlign:'right'}}>THE NITTY GRITTIES</p>
+              {['Activation FAQs','Retail Audit FAQs','Event Management','Regional Reach','Careers'].map(l => (
+                <a key={l} href="javascript:void(0);" style={{...linkStyle, textAlign:'right'}} onMouseEnter={e => e.currentTarget.style.opacity='0.6'} onMouseLeave={e => e.currentTarget.style.opacity='1'}>{l}</a>
+              ))}
+            </div>
+          </div>
+          <div style={{width:'70%', margin:'0 auto', paddingTop:40, paddingBottom:40, textAlign:'center', borderTop:'1px solid rgba(0,0,0,0.08)'}}>
+            <p style={{fontSize:16, lineHeight:'1.7', color:'rgba(0,0,0,0.6)', fontFamily:'Helvetica, sans-serif'}}>
+              Faces Integrated Group (FIG) is a leading experiential marketing and brand activation agency dedicated to helping businesses build stronger connections with their customers through innovative, results-driven marketing solutions. Guided by our motto "WE BUILD BRANDS", FIG provides end-to-end brand experience solutions including experiential marketing, retail merchandising, event management, creative production, and market auditing for top FMCG brands and corporate organizations across East Africa.
+            </p>
+          </div>
+          <div style={{width:'100%', textAlign:'center', overflow:'hidden', paddingBottom:24, pointerEvents:'none'}}>
+            <h1 style={{fontSize:'clamp(48px, 9vw, 9vw)', fontWeight:700, color:'rgba(30,50,90,0.08)', textTransform:'uppercase', lineHeight:1, letterSpacing:'-0.04em', whiteSpace:'nowrap', fontFamily:'Helvetica, sans-serif'}}>
+              Faces Integrated Group
+            </h1>
+          </div>
+        </footer>
+      );
+    };
+
+    const VideoHoverContainer = ({ children, aspectRatio = "auto", className = "" }) => (
+      <div className={`video-container ${className}`} style={{ aspectRatio }}>
+        {children}
+        <div className="bracket bracket-tl" />
+        <div className="bracket bracket-tr" />
+        <div className="bracket bracket-bl" />
+        <div className="bracket bracket-br" />
+        <div className="video-overlay">
+          <div className="video-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+          </div>
+        </div>
+      </div>
+    );
+
+    function App() {
+      const posts = [
+        {
+          title: "5 Experiential Marketing Trends Shaping East Africa in 2026",
+          category: "Insights",
+          color: "#1a3a5c",
+          img: "../img/Fig services/WhatsApp Image 2026-07-23 at 5.37.34 AM.webp"
+        },
+        {
+          title: "How Retail Auditing Drives Real FMCG Growth",
+          category: "Retail",
+          color: "#c8860a",
+          img: "../img/Fig services/WhatsApp Image 2026-07-23 at 5.40.01 AM (1).webp"
+        },
+        {
+          title: "Inside a Successful Brand Activation: Lessons from the Field",
+          category: "Activation",
+          color: "#2c4c34",
+          img: "../img/Fig services/WhatsApp Image 2026-07-23 at 5.48.14 AM.webp"
+        }
+      ];
+
+      return (
+        <div>
+          <Navbar />
+          
+          <main className="blog-container">
+            {/* Header Area */}
+            <div className="mb-12">
+              <span className="inline-block bg-[#f4f4f4] px-3 py-1.5 rounded-[8px] text-[13px] font-medium text-[#333] mb-4">
+                Insights & Updates
+              </span>
+              <h1 className="font-outfit blog-heading text-[64px] font-medium tracking-[-2.5px] leading-tight mb-6 text-[#111]">
+                Field Notes by FIG
+              </h1>
+              
+              <div className="header-bottom flex items-end justify-between">
+                <p className="max-w-[480px] text-[#666] text-[18px] font-medium opacity-80 leading-relaxed m-0">
+                  Expert perspectives on brand activation, experiential marketing, and the East Africa FMCG landscape — from the FIG team on the ground.
+                </p>
+                <button className="bg-black text-white px-6 py-3 rounded-[40px] text-[14px] font-semibold hover:scale-[1.02] transition-transform duration-200 shrink-0">
+                  View all articles
+                </button>
+              </div>
+            </div>
+
+            {/* Featured Post */}
+            <div className="featured-post grid grid-cols-2 bg-[#fcfcfc] rounded-[20px] border border-[#f0f0f0] min-h-[520px] mb-12 overflow-hidden">
+              <div className="video-container w-full h-full min-h-[300px]">
+                <img src="../img/Fig services/WhatsApp Image 2026-07-23 at 5.44.14 AM.webp" alt="FIG Brand Activation" style={{width:'100%', height:'100%', objectFit:'cover', transition:'transform 0.5s cubic-bezier(0.33,1,0.68,1)'}} />
+                <div className="bracket bracket-tl" />
+                <div className="bracket bracket-tr" />
+                <div className="bracket bracket-bl" />
+                <div className="bracket bracket-br" />
+                <div className="video-overlay"></div>
+              </div>
+              
+              <div className="featured-post-content p-[60px] flex flex-col items-start">
+                <span className="bg-black text-white px-4 py-1.5 rounded-[20px] text-[12px] font-semibold tracking-wide mb-8">
+                  Featured
+                </span>
+                
+                <h2 className="font-outfit featured-title text-[48px] font-medium tracking-[-1.5px] leading-[1.1] text-[#111] mb-6">
+                  Why Experiential Marketing Wins in the FMCG Space
+                </h2>
+                
+                <p className="text-[#666] text-[17px] leading-relaxed m-0">
+                  Consumer trust is built through experience, not just advertising. Here's how FIG's on-ground activations are reshaping brand loyalty across East Africa.
+                </p>
+                
+                <div className="mt-auto pt-8 flex items-center justify-between w-full border-t border-[#f0f0f0] mt-10">
+                  <span className="text-[14px] font-medium text-[#444]">By FIG Editorial Team</span>
+                  <span 
+                    className="px-3 py-1 rounded-[20px] text-white text-[11px] font-semibold uppercase tracking-wider"
+                    style={{ backgroundColor: "#1a3a5c" }}
+                  >
+                    Strategy
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Grid Posts */}
+            <div className="blog-grid grid grid-cols-3 gap-[25px]">
+              {posts.map((post, idx) => (
+                <div key={idx} className="flex flex-col group cursor-pointer">
+                  <div className="video-container mb-4" style={{aspectRatio:'16/10', borderRadius:20, overflow:'hidden'}}>
+                    <img src={post.img} alt={post.title} style={{width:'100%', height:'100%', objectFit:'cover', display:'block', transition:'transform 0.5s cubic-bezier(0.33,1,0.68,1)'}} />
+                    <div className="bracket bracket-tl" />
+                    <div className="bracket bracket-tr" />
+                    <div className="bracket bracket-bl" />
+                    <div className="bracket bracket-br" />
+                    <div className="video-overlay"></div>
+                  </div>
+                  
+                  <div className="flex items-start justify-between gap-4 mt-2">
+                    <h3 className="font-outfit text-[17px] font-semibold leading-snug text-[#111] group-hover:text-black">
+                      {post.title}
+                    </h3>
+                    <span 
+                      className="px-3 py-1 rounded-[20px] text-white text-[11px] font-semibold uppercase tracking-wider shrink-0 mt-1"
+                      style={{ backgroundColor: post.color }}
+                    >
+                      {post.category}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+            
+          </main>
+          
+          <FIGFooter />
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>
